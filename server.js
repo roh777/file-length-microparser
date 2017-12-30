@@ -30,9 +30,10 @@ app.get("/", function (request, response) {
 
 
 app.post('/', upload.single('myfile'), (req, res) => {
-  const uploadedFile = req.file.buffer;
-  console.log(uploadedFile);
-  res.json({size: uploadedFile.byteLength});
+  if(req.file)
+    res.json({size: req.file.buffer.byteLength});
+  else
+    res.json('ERROR: There was a problem with your file upload');
 })
 
 
